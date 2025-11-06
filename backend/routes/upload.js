@@ -79,11 +79,9 @@ router.post('/logo', authMiddleware, upload.single('logo'), (req, res) => {
       });
     }
 
-    // Get the base URL - use localhost:5000 for backend
-    const baseUrl = process.env.API_URL || 'http://localhost:5000';
-    
-    // Construct the full absolute URL that points to backend
-    const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
+    // Return just the path, not the full URL
+    // The frontend will prepend the API URL when displaying
+    const imageUrl = `/uploads/${req.file.filename}`;
 
     console.log('Logo uploaded:', {
       filename: req.file.filename,
@@ -190,11 +188,9 @@ router.post('/favicon', authMiddleware, uploadFavicon.single('favicon'), (req, r
       });
     }
 
-    // Get the base URL - use localhost:5000 for backend
-    const baseUrl = process.env.API_URL || 'http://localhost:5000';
-    
-    // Construct the full absolute URL that points to backend
-    const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
+    // Return just the path, not the full URL
+    // The frontend will prepend the API URL when displaying
+    const imageUrl = `/uploads/${req.file.filename}`;
 
     console.log('Favicon uploaded:', {
       filename: req.file.filename,

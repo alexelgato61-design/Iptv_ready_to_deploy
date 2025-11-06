@@ -38,7 +38,15 @@ export default function Header() {
       const res = await fetch(`${apiUrl}/settings`)
       if (!res.ok) return
       const data = await res.json()
-      if (data.logo_url) setLogoUrl(data.logo_url)
+      
+      // Handle logo URL - if it starts with /uploads, prepend the API URL
+      if (data.logo_url) {
+        const fullLogoUrl = data.logo_url.startsWith('/uploads') 
+          ? `${apiUrl}${data.logo_url}` 
+          : data.logo_url
+        setLogoUrl(fullLogoUrl)
+      }
+      
       if (data.logo_text) setLogoText(data.logo_text)
       if (data.use_logo_image !== undefined) setUseLogoImage(data.use_logo_image)
       if (data.logo_width) setLogoWidth(data.logo_width)
